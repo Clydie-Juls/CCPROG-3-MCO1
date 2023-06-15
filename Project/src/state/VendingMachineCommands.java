@@ -9,7 +9,13 @@ public enum VendingMachineCommands {
     REPLENISH_MONEY;
 
     //TODO: DO THIS!!!!!
-    public static VendingMachineCommands inputCommand() {
-        return BUY;
+    public static VendingMachineCommands inputCommand(String input) {
+        for (VendingMachineCommands value : VendingMachineCommands.values()) {
+            if(value.toString().equalsIgnoreCase(input)) {
+                return value;
+            }
+        }
+
+        return null;
     }
 }
