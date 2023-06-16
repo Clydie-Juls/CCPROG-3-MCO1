@@ -84,6 +84,16 @@ public class Denomination {
     }
 
     /**
+     * This method returns the total money and clears each denomination to 0.
+     * @return Total money saved by the machine.
+     */
+    public int passDenomination() {
+        int total = getTotalPayment(CURRENCY);
+        CURRENCY.replaceAll((k, v) -> 0);
+        return total;
+    }
+
+    /**
      * This method gets the total amount the user pays.
      * @param payment   Users payment.
      * @return  total amount the user pays.
