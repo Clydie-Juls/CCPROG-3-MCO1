@@ -9,8 +9,12 @@ public class Slot {
         this.CAPACITY = capacity;
     }
 
-    //TODO: DO THIS!!!!!
     public boolean sellItem(int amount) {
+
+        if (this.amount >= amount) {
+            this.amount -= amount;
+            return true;
+        }
         return false;
     }
 
