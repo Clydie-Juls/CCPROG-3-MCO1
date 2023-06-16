@@ -1,32 +1,31 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
 
 public class Transactions {
-    private final Map<String, Integer> PREVIOUS_TRANSACTIONS;
-    private final Map<String, Integer> TRANSACTIONS;
+
+    private List<Map<Item, Integer>> itemLogs;
 
     public Transactions() {
-        this.PREVIOUS_TRANSACTIONS = new LinkedHashMap<>();
-        this.TRANSACTIONS = new LinkedHashMap<>();
+        this.itemLogs = new ArrayList<>();
+
     }
 
     //TODO: DO THIS!!!!!
-    public void addTransactions() {
-
+    public void addTransactions(Item item, int quantity) {
+        Item newItem = new Item(item.getName(), item.getPrice(), item.getCalories());
+        itemLogs.get(itemLogs.size()-1).put(newItem, quantity);
     }
 
     //TODO: DO THIS!!!!!
     public void resetTransactions() {
-
+        itemLogs.add(new LinkedHashMap<>());
     }
 
-    public Map<String, Integer> getPreviousTransactions() {
-        return PREVIOUS_TRANSACTIONS;
-    }
-
-    public Map<String, Integer> getTransactions() {
-        return TRANSACTIONS;
+    public List<Map<Item, Integer>> getItemLogs() {
+        return itemLogs;
     }
 }
