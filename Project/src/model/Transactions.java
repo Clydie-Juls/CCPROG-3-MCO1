@@ -1,31 +1,28 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 public class Transactions {
 
-    private List<Map<Item, Integer>> itemLogs;
+    private final List<Map<Item, Integer>> ITEM_LOGS;
 
     public Transactions() {
-        this.itemLogs = new ArrayList<>();
-
+        this.ITEM_LOGS = new ArrayList<>();
+        ITEM_LOGS.add(new HashMap<>());
     }
 
     //TODO: DO THIS!!!!!
     public void addTransactions(Item item, int quantity) {
         Item newItem = new Item(item.getName(), item.getPrice(), item.getCalories());
-        itemLogs.get(itemLogs.size()-1).put(newItem, quantity);
+        ITEM_LOGS.get(ITEM_LOGS.size()-1).put(newItem, quantity);
     }
 
     //TODO: DO THIS!!!!!
     public void resetTransactions() {
-        itemLogs.add(new LinkedHashMap<>());
+        ITEM_LOGS.add(new LinkedHashMap<>());
     }
 
     public List<Map<Item, Integer>> getItemLogs() {
-        return itemLogs;
+        return ITEM_LOGS;
     }
 }
