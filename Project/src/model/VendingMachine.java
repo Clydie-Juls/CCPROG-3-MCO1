@@ -46,11 +46,8 @@ public class VendingMachine {
         return denomination;
     }
 
-    public Map<String, Integer> getTransactions() {
-        return transactions.getTransactions();
+    public Transactions getTransactions() {
+        return transactions;
     }
 
-    public Map<String, Integer> getPreviousTransactions() {
-        return transactions.getPreviousTransactions();
-    }
 }
