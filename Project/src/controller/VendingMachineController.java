@@ -1,19 +1,16 @@
 package controller;
 
-import model.MaintenanceService;
 import model.VendingMachine;
 
 public class VendingMachineController {
     private final VendingMachine VENDING_MACHINE;
-    private MaintenanceService maintenanceService;
 
-    public VendingMachineController(VendingMachine vendingMachine, MaintenanceService maintenanceService) {
+    public VendingMachineController(VendingMachine vendingMachine) {
         this.VENDING_MACHINE = vendingMachine;
-        this.maintenanceService = maintenanceService;
     }
 
     //TODO: DO THIS!!!!!
-    public boolean pickItem() {
+    public boolean buy() {
         return false;
     }
 
@@ -55,5 +52,9 @@ public class VendingMachineController {
     //TODO: DO THIS!!!!!
     public void displayStockComparison() {
 
+    }
+
+    public VendingMachine getvendingMachine() {
+        return VENDING_MACHINE;
     }
 }
