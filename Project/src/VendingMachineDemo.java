@@ -3,10 +3,10 @@ import model.MaintenanceService;
 import model.VendingMachine;
 import state.VendingMachineCommands;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachineDemo {
-    //TODO: DO THIS!!!!!
     private static Scanner scanner;
     private static VendingMachineController vendingMachineController;
     private static MaintenanceService maintenanceService;
@@ -18,64 +18,55 @@ public class VendingMachineDemo {
     }
 
     private static void executeOptionFeatures() {
-        VendingMachineCommands commands;
-        VendingMachineCommands[] availableCommands = {
-                VendingMachineCommands.VENDING_MACHINE_FEATURES,
-        VendingMachineCommands.MAINTENANCE_FEATURES,
-        VendingMachineCommands.EXIT};
-        displayCommands(availableCommands);
-        do {
-            commands = inputCommand(scanner);
-            switch (commands) {
-                case VENDING_MACHINE_FEATURES -> executeVendingMachineFeatures();
-                case MAINTENANCE_FEATURES -> executeMaintenanceFeatures();
-                case EXIT -> System.out.println("Program Terminated");
-                default -> System.out.println("Invalid Command");
-            }
-        } while (commands != VendingMachineCommands.EXIT);
+        Map<VendingMachineCommands, Runnable> commandsRunnableMap = Map.of(
+                VendingMachineCommands.VENDING_MACHINE_FEATURES, VendingMachineDemo::executeVendingMachineFeatures,
+                VendingMachineCommands.MAINTENANCE_FEATURES, VendingMachineDemo::executeMaintenanceFeatures,
+                VendingMachineCommands.EXIT, () -> System.out.println("Program Terminated")
+        );
+
+        displayCommands(commandsRunnableMap.keySet().toArray(new VendingMachineCommands[0]));
+        executeCommand(commandsRunnableMap, false);
     }
 
     private static void executeVendingMachineFeatures() {
-        VendingMachineCommands commands;
+        Map<VendingMachineCommands, Runnable> commandsRunnableMap = Map.of(
+                VendingMachineCommands.BUY, () -> {if(vendingMachineController.buy()) {System.out.println("Unable to purchase");}},
+                VendingMachineCommands.EXIT, () -> System.out.println("Vnd Features exit.")
+        );
 
-        VendingMachineCommands[] availableCommands = {
-                VendingMachineCommands.BUY,
-                VendingMachineCommands.EXIT};
-        displayCommands(availableCommands);
-        do {
-            vendingMachineController.displayStock();
-            commands = inputCommand(scanner);
-            switch (commands) {
-                case BUY -> vendingMachineController.buy();
-                case EXIT -> System.out.println("Program Terminated");
-                default -> System.out.println("Invalid Command");
-            }
-        } while (commands != VendingMachineCommands.EXIT);
+        displayCommands(commandsRunnableMap.keySet().toArray(new VendingMachineCommands[0]));
+        executeCommand(commandsRunnableMap, true);
     }
 
     private static void executeMaintenanceFeatures() {
-        VendingMachineCommands commands;
-        VendingMachineCommands[] availableCommands = {
-                VendingMachineCommands.STOCK,
-                VendingMachineCommands.RESTOCK,
-                VendingMachineCommands.COLLECT_MONEY,
-                VendingMachineCommands.REPLENISH_MONEY,
-                VendingMachineCommands.CHANGE_ITEM_PRICE,
-                VendingMachineCommands.EXIT};
-        displayCommands(availableCommands);
+        Map<VendingMachineCommands, Runnable> commandsRunnableMap = Map.of(
+                VendingMachineCommands.STOCK, maintenanceService.stock(),
+                VendingMachineCommands.RESTOCK, maintenanceService.restock(),
+                VendingMachineCommands.COLLECT_MONEY, maintenanceService.collectMoney(),
+                VendingMachineCommands.REPLENISH_MONEY, maintenanceService.replenishDenomination(),
+                VendingMachineCommands.CHANGE_ITEM_PRICE, maintenanceService.changeItemPrice(),
+                VendingMachineCommands.EXIT, () -> System.out.println("Exit Maintenance features.")
+        );
+
+        displayCommands(commandsRunnableMap.keySet().toArray(new VendingMachineCommands[0]));
+        executeCommand(commandsRunnableMap, false);
+    }
+
+    private static void executeCommand(Map<VendingMachineCommands, Runnable> commandsRunnableMap,
+                                       boolean isVndFeatures) {
+        displayCommands(commandsRunnableMap.keySet().toArray(new VendingMachineCommands[0]));
+        VendingMachineCommands command;
         do {
-            vendingMachineController.displayStock();
-            commands = inputCommand(scanner);
-            switch (commands) {
-                case STOCK -> maintenanceService.stock();
-                case RESTOCK -> maintenanceService.restock();
-                case COLLECT_MONEY -> maintenanceService.collectMoney();
-                case REPLENISH_MONEY -> maintenanceService.replenishDenomination();
-                case CHANGE_ITEM_PRICE -> maintenanceService.changeItemPrice();
-                case EXIT -> System.out.println("Program Terminated");
-                default -> System.out.println("Invalid Command");
+            if(isVndFeatures) {
+                vendingMachineController.displayStock();
             }
-        } while (commands != VendingMachineCommands.EXIT);
+            command = inputCommand(scanner);
+            if(commandsRunnableMap.containsKey(command)) {
+                commandsRunnableMap.get(command).run();
+            } else {
+                System.out.println("Invalid Command");
+            }
+        } while (command != VendingMachineCommands.EXIT);
     }
 
     private static VendingMachineCommands inputCommand(Scanner scanner) {
