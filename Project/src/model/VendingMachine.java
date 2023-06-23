@@ -7,8 +7,8 @@ import java.util.Map;
  */
 public class VendingMachine {
     private final Slot[] slots;
-    private final Denomination denomination;
-    private final Transactions transactions;
+    private final Denomination DENOMINATION;
+    private final Transactions TRANSACTIONS;
 
     /**
      * Constructs a VendingMachine object with default settings.
@@ -24,8 +24,8 @@ public class VendingMachine {
      * @param itemCapacity the maximum capacity of each slot for holding items
      */
     public VendingMachine(int noOfSlots, int itemCapacity) {
-        denomination = new Denomination();
-        transactions = new Transactions();
+        DENOMINATION = new Denomination();
+        TRANSACTIONS = new Transactions();
         slots = new Slot[noOfSlots];
         for (int i = 0; i < slots.length; i++) {
             slots[i] = new Slot(itemCapacity);
@@ -39,8 +39,8 @@ public class VendingMachine {
      * @param isNoOfCapacity   determines whether the value of no represents the number of slots or the item capacity
      */
     public VendingMachine(int no, boolean isNoOfCapacity) {
-        denomination = new Denomination();
-        transactions = new Transactions();
+        DENOMINATION = new Denomination();
+        TRANSACTIONS = new Transactions();
         if (isNoOfCapacity) {
             no = Math.max(8, no);
             slots = new Slot[no];
@@ -71,7 +71,7 @@ public class VendingMachine {
      * @return the denomination object
      */
     public Denomination getDenomination() {
-        return denomination;
+        return DENOMINATION;
     }
 
     /**
@@ -80,6 +80,6 @@ public class VendingMachine {
      * @return the transactions object
      */
     public Transactions getTransactions() {
-        return transactions;
+        return TRANSACTIONS;
     }
 }
