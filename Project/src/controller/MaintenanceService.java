@@ -1,5 +1,8 @@
-package model;
+package controller;
 
+
+import model.Item;
+import model.VendingMachine;
 
 public class MaintenanceService {
     private int totalMoney;
