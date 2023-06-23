@@ -1,5 +1,5 @@
 import controller.VendingMachineController;
-import controller.MaintenanceService;
+import model.MaintenanceService;
 import model.VendingMachine;
 import state.VendingMachineCommands;
 
