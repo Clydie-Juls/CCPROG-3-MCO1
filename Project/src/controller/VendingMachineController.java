@@ -1,6 +1,7 @@
 package controller;
 
 import model.VendingMachine;
+import view.VendingMachinePrinter;
 
 public class VendingMachineController {
     private final VendingMachine VENDING_MACHINE;
@@ -41,7 +42,7 @@ public class VendingMachineController {
 
     //TODO: DO THIS!!!!!
     public void displayStock() {
-
+        VendingMachinePrinter.displayStock(VENDING_MACHINE);
     }
 
     //TODO: DO THIS!!!!!
