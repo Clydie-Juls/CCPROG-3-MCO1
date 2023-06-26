@@ -4,6 +4,11 @@ public class MaintenanceService {
     private int totalMoney;
     private VendingMachine vendingMachine;
 
+    /**
+     * Constructs a MaintenanceService object with the specified vending machine.
+     *
+     * @param vendingMachine the vending machine to be maintained
+     */
     public MaintenanceService(VendingMachine vendingMachine) {
         totalMoney = 0;
         this.vendingMachine = vendingMachine;
@@ -41,6 +46,9 @@ public class MaintenanceService {
     }
 
     //TODO: DO THIS!!!!!
+    /**
+     * Collects the money from the vending machine and adds it to the total money collected.
+     */
     public void collectMoney() {
         totalMoney += vendingMachine.getDenomination().passDenomination();
     }
@@ -54,10 +62,20 @@ public class MaintenanceService {
         return false;
     }
 
+    /**
+     * Retrieves the total money collected by the maintenance service.
+     *
+     * @return the total money collected
+     */
     public int getTotalMoney() {
         return totalMoney;
     }
 
+    /**
+     * Sets the vending machine for maintenance by the service.
+     *
+     * @param vendingMachine the vending machine to be maintained
+     */
     public void setVendingMachine(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
     }
