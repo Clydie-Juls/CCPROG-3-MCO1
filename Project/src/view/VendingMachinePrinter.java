@@ -22,6 +22,7 @@ public class VendingMachinePrinter {
                 Item currItem = slot.getItem();
                 System.out.println(currItem.getName() + " -> Qty: " + slot.getAmount() +
                         "-> Calories: " + currItem.getName());
+                hasItem = true;
             }
         }
 
