@@ -1,9 +1,8 @@
 import controller.VendingMachineController;
-import model.MaintenanceService;
+import controller.MaintenanceService;
 import model.VendingMachine;
 import state.Command;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachineDemo {
