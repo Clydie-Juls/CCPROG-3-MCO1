@@ -1,14 +1,10 @@
 package controller;
 
 import model.Item;
-import model.Slot;
 import model.VendingMachine;
-import model.Denomination;
 import view.VendingMachinePrinter;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class VendingMachineController {
     private final VendingMachine VENDING_MACHINE;
