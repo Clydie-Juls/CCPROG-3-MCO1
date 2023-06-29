@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -56,6 +58,31 @@ public class VendingMachine {
         }
     }
 
+    public Item[] dispenseItem(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
+        Slot selectedSlot = slots[slotNo];
+
+        if (DENOMINATION.processPayment(payment, selectedSlot.getItem().getPrice() * amount)) {
+            if (selectedSlot.getAmount() >= amount) {
+                selectedSlot.setAmount(selectedSlot.getAmount() - amount);
+                Item item = selectedSlot.getItem();
+
+                Item[] dispensedItems = new Item[amount];
+
+                for (int i = 0; i < amount; i++) {
+                    dispensedItems[i] = new Item(item.getName(), item.getCalories(), item.getPrice());
+                }
+
+                return dispensedItems;
+            }
+        }
+
+        return null;
+    }
+
+
+
+
+
     /**
      * Retrieves the array of slots in the vending machine.
      *
@@ -82,4 +109,6 @@ public class VendingMachine {
     public Transactions getTransactions() {
         return TRANSACTIONS;
     }
+
+
 }
