@@ -1,7 +1,14 @@
 package controller;
 
+import model.Item;
+import model.Slot;
 import model.VendingMachine;
+import model.Denomination;
 import view.VendingMachinePrinter;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class VendingMachineController {
     private final VendingMachine VENDING_MACHINE;
@@ -11,34 +18,11 @@ public class VendingMachineController {
     }
 
     //TODO: DO THIS!!!!!
-    public boolean buy() {
-        return false;
+    public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNumber, int amount) {
+        return VENDING_MACHINE.dispenseItem(payment, slotNumber, amount);
     }
 
-    //TODO: DO THIS!!!!!
-    public void stock() {
 
-    }
-
-    //TODO: DO THIS!!!!!
-    public void restock() {
-
-    }
-
-    //TODO: DO THIS!!!!!
-    public void changeItemPrice() {
-
-    }
-
-    //TODO: DO THIS!!!!!
-    public void collectMoney() {
-
-    }
-
-    //TODO: DO THIS!!!!!
-    public void replenishDenomination() {
-
-    }
 
     //TODO: DO THIS!!!!!
     public void displayStock() {
@@ -47,11 +31,6 @@ public class VendingMachineController {
 
     //TODO: DO THIS!!!!!
     public void displayTransactions() {
-
-    }
-
-    //TODO: DO THIS!!!!!
-    public void displayStockComparison() {
 
     }
 
