@@ -1,8 +1,10 @@
 package view;
 
 import model.Item;
+import model.Slot;
 import model.VendingMachine;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,14 +19,14 @@ public class VendingMachineView {
      *
      * @param vendingMachine the vending machine whose stocks will be displayed
      */
-    public void displayStock(VendingMachine vendingMachine) {
+    public void displayStock(Slot[] slots) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
-        for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
-            if (vendingMachine.getSlots()[i].getAmount() > 0) {
-                Item currItem = vendingMachine.getSlots()[i].getItem();
+        for (int i = 0; i < slots.length; ++i) {
+            if (slots[i].getAmount() > 0) {
+                Item currItem = slots[i].getItem();
                 System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
-                        vendingMachine.getSlots()[i].getAmount() +
+                        slots[i].getAmount() +
                         " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
                 hasItem = true;
             }
@@ -42,10 +44,10 @@ public class VendingMachineView {
      *
      * @param vendingMachine the vending machine whose transactions will be displayed
      */
-    public void displayTransactions(VendingMachine vendingMachine) {
+    public void displayTransactions(List<Map<Item, Integer>> itemLogs) {
         boolean hasTransaction = false;
         int i = 1;
-        for (Map<Item, Integer> itemLog : vendingMachine.getTransactions().getItemLogs()) {
+        for (Map<Item, Integer> itemLog : itemLogs) {
             if (!itemLog.isEmpty()) {
                 System.out.println("<----- Transactions on stock " + i + " ----->");
                 hasTransaction = true;

@@ -1,11 +1,12 @@
 package controller;
 
 import model.Item;
+import model.MaintenanceData;
 import model.VendingMachine;
 import view.MaintenanceView;
 
 public class MaintenanceService {
-    private int totalMoney;
+    private final MaintenanceData MAINTENANCE_DATA;
     private VendingMachine vendingMachine;
     private final MaintenanceView MAINTENANCE_VIEW;
 
@@ -14,8 +15,9 @@ public class MaintenanceService {
      *
      * @param vendingMachine the vending machine to be maintained
      */
-    public MaintenanceService(VendingMachine vendingMachine, MaintenanceView maintenanceView) {
-        totalMoney = 0;
+    public MaintenanceService(MaintenanceData maintenanceData, VendingMachine vendingMachine,
+                              MaintenanceView maintenanceView) {
+        this.MAINTENANCE_DATA = maintenanceData;
         this.vendingMachine = vendingMachine;
         this.MAINTENANCE_VIEW = maintenanceView;
     }
@@ -123,7 +125,8 @@ public class MaintenanceService {
      * Collects the money from the vending machine and adds it to the total money collected.
      */
     public void collectMoney() {
-        totalMoney += vendingMachine.getDenomination().passDenomination();
+        MAINTENANCE_DATA.setTotalMoney(MAINTENANCE_DATA.getTotalMoney() +
+                vendingMachine.getDenomination().passDenomination());
     }
 
     //TODO: DO THIS!!!!!
@@ -137,15 +140,15 @@ public class MaintenanceService {
     }
 
     public void displayUnfilteredStock() {
-        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine);
+        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine.getSlots());
     }
 
     public void displayTotalMoneyCollected() {
-        MAINTENANCE_VIEW.displayTotalMoneyCollected(totalMoney);
+        MAINTENANCE_VIEW.displayTotalMoneyCollected(MAINTENANCE_DATA.getTotalMoney());
     }
 
     public void displayDenomination() {
-        MAINTENANCE_VIEW.displayDenomination(vendingMachine);
+        MAINTENANCE_VIEW.displayDenomination(vendingMachine.getDenomination().getCurrency());
     }
 
     /**

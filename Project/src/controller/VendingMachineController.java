@@ -44,12 +44,12 @@ public class VendingMachineController {
 
     //TODO: DO THIS!!!!!
     public void displayStock() {
-        VENDING_MACHINE_VIEW.displayStock(VENDING_MACHINE);
+        VENDING_MACHINE_VIEW.displayStock(VENDING_MACHINE.getSlots());
     }
 
     //TODO: DO THIS!!!!!
     public void displayTransactions() {
-        VENDING_MACHINE_VIEW.displayTransactions(VENDING_MACHINE);
+        VENDING_MACHINE_VIEW.displayTransactions(VENDING_MACHINE.getTransactions().getItemLogs());
     }
 
     public boolean hasStock() {
