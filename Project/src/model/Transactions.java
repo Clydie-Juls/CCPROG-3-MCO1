@@ -16,19 +16,18 @@ public class Transactions {
         ITEM_LOGS.add(new HashMap<>());
     }
 
-    //TODO: DO THIS!!!!!
     /**
      * Adds a transaction for the specified item and quantity to the current item log.
      *
-     * @param item      the item involved in the transaction
-     * @param quantity  the quantity of the item involved in the transaction
+     * @param item     the item involved in the transaction
+     * @param quantity the quantity of the item involved in the transaction
      */
-    public void addTransactions(Item item, int quantity) {
+    public void addTransaction(Item item, int quantity) {
         Item newItem = new Item(item.getName(), item.getPrice(), item.getCalories());
-        ITEM_LOGS.get(ITEM_LOGS.size() - 1).put(newItem, quantity);
+        Map<Item, Integer> currentLog = ITEM_LOGS.get(ITEM_LOGS.size() - 1);
+        currentLog.put(newItem, quantity);
     }
 
-    //TODO: DO THIS!!!!!
     /**
      * Creates a new item log for recording future transactions.
      */
