@@ -213,8 +213,8 @@ public class VendingMachineDemo {
     /**
      * Reads and validates the user's command input.
      *
-     * @param availableCommands the array of available commands
-     * @return the command entered by the user
+     * @param availableCommands The array of available commands.
+     * @return The command entered by the user.
      */
     private static Command inputCommand(Command[] availableCommands) {
         Command command;
@@ -251,7 +251,7 @@ public class VendingMachineDemo {
     /**
      * Displays the available commands/options to the user.
      *
-     * @param commands the array of commands/options to display
+     * @param commands The array of commands/options to display.
      */
     private static void displayCommands(Command[] commands) {
         for (int i = 0; i < commands.length; i++) {

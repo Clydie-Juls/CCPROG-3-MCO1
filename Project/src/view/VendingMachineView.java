@@ -2,7 +2,6 @@ package view;
 
 import model.Item;
 import model.Slot;
-import model.VendingMachine;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class VendingMachineView {
      * the name, quantity, and the amount of calories. If all slots are empty, it will prompt that it
      * doesn't have any stocks.
      *
-     * @param vendingMachine the vending machine whose stocks will be displayed
+     * @param slots Slots of the vending machine.
      */
     public void displayStock(Slot[] slots) {
         boolean hasItem = false;
@@ -42,7 +41,7 @@ public class VendingMachineView {
      * Displays all transactions that have occurred from the first to the last stock. It displays the name, quantity, and
      * total price of each item if the item log is not empty.
      *
-     * @param vendingMachine the vending machine whose transactions will be displayed
+     * @param itemLogs Transaction history of the vending machine.
      */
     public void displayTransactions(List<Map<Item, Integer>> itemLogs) {
         boolean hasTransaction = false;
@@ -72,6 +71,10 @@ public class VendingMachineView {
         System.out.println("\n\n");
     }
 
+    /**
+     * Displays error(s) coming for the maintenance.
+     * @param errors Error message.
+     */
     public void displayError(String ...errors) {
         for (String error : errors) {
             System.out.printf("Vending Machine Error: {%s}\n", error);
