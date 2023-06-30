@@ -1,6 +1,7 @@
 import controller.VendingMachineController;
 import controller.MaintenanceService;
 import model.Item;
+import model.MaintenanceData;
 import model.VendingMachine;
 import state.Command;
 import view.MaintenanceView;
@@ -21,8 +22,8 @@ public class VendingMachineDemo {
 
     public static void main(String[] args) {
         vendingMachineController = new VendingMachineController(new VendingMachine(), new VendingMachineView());
-        maintenanceService = new MaintenanceService(vendingMachineController.getVendingMachine(), new MaintenanceView());
-        maintenanceService.stock(3, 2, "Chips", 10, 20);
+        maintenanceService = new MaintenanceService(new MaintenanceData(),
+                vendingMachineController.getVendingMachine(), new MaintenanceView());
         scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------");
         System.out.println("| Welcome to The Vending Machine Demo Program |");
