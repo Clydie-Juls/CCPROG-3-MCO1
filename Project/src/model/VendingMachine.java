@@ -58,10 +58,8 @@ public class VendingMachine {
         }
     }
 
-    public Item[] dispenseItem(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
+    public Item[] dispenseItem(int slotNo, int amount) {
         Slot selectedSlot = slots[slotNo];
-
-        if (DENOMINATION.processPayment(payment, selectedSlot.getItem().getPrice() * amount)) {
             if (selectedSlot.getAmount() >= amount) {
                 selectedSlot.setAmount(selectedSlot.getAmount() - amount);
                 Item item = selectedSlot.getItem();
@@ -74,7 +72,6 @@ public class VendingMachine {
 
                 return dispensedItems;
             }
-        }
 
         return null;
     }

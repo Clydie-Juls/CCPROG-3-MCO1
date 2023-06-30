@@ -1,6 +1,7 @@
 package controller;
 
 import model.Item;
+import model.Slot;
 import model.VendingMachine;
 import view.VendingMachinePrinter;
 
@@ -16,8 +17,25 @@ public class VendingMachineController {
     }
 
     //TODO: DO THIS!!!!!
-    public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNumber, int amount) {
-        return VENDING_MACHINE.dispenseItem(payment, slotNumber, amount);
+    public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
+        if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
+            System.out.println("Slot number input outside of range.");
+        } else {
+            Slot selectedSlot = VENDING_MACHINE.getSlots()[slotNo];
+
+            if (!VENDING_MACHINE.getDenomination().processPayment(payment,
+                    selectedSlot.getItem().getPrice() * amount)) {
+
+                System.out.println("Currency Transactions has failed.");
+                Item[] dispensedItem = VENDING_MACHINE.dispenseItem(slotNo, amount);
+
+                if(dispensedItem != null) {
+                    return dispensedItem;
+                }
+                System.out.println("Not enough item to dispense.");
+            }
+        }
+        return null;
     }
 
 
