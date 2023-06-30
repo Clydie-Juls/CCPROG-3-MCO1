@@ -11,9 +11,13 @@ public class MaintenanceView {
         System.out.println("Vending Machine Stocks:");
         for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
             Item currItem = vendingMachine.getSlots()[i].getItem();
-            System.out.println("[" + (i + 1) + "] -" + currItem.getName() + " -> Qty: " +
-                    vendingMachine.getSlots()[i].getAmount() +
-                    " -> Calories: " + currItem.getCalories());
+            if(currItem != null) {
+                System.out.println("[" + (i + 1) + "] -" + currItem.getName() + " -> Qty: " +
+                        vendingMachine.getSlots()[i].getAmount() +
+                        " -> Calories: " + currItem.getCalories());
+            } else {
+                System.out.println("[" + (i + 1) + "] -" + "No item");
+            }
             hasItem = true;
         }
 

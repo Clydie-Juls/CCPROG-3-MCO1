@@ -23,7 +23,7 @@ public enum Command {
      */
     public static Command inputCommand(String input) {
         for (Command command : Command.values()) {
-            if (command.toString().trim().replaceAll("\\s+", "_").equalsIgnoreCase(input)) {
+            if (command.toString().equalsIgnoreCase(input.trim().replaceAll("\\s+", "_"))) {
                 return command;
             }
         }

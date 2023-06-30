@@ -34,6 +34,11 @@ public class MaintenanceService {
             isCorrectInputs = false;
         }
 
+        if( amount > vendingMachine.getSlots()[slotNo - 1].getCapacity()) {
+            MAINTENANCE_VIEW.displayError("Amount exceeded slot capacity.");
+            isCorrectInputs = false;
+        }
+
         if (itemName.isBlank()) {
             MAINTENANCE_VIEW.displayError("Item name is blank.");
             isCorrectInputs = false;
@@ -64,6 +69,9 @@ public class MaintenanceService {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
             MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
+            isCorrectInputs = false;
+        } else if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
+            MAINTENANCE_VIEW.displayError("Cannot restock because there is no existing item there.");
             isCorrectInputs = false;
         }
 

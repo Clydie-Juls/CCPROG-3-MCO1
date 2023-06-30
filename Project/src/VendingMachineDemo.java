@@ -39,6 +39,9 @@ public class VendingMachineDemo {
                 Command.MAINTENANCE_FEATURES,
                 Command.EXIT
         };
+        System.out.println("-------------------");
+        System.out.println("| Option Features |");
+        System.out.println("-------------------");
 
         Command currCommand;
 
@@ -67,6 +70,9 @@ public class VendingMachineDemo {
 
         Command currCommand;
 
+        System.out.println("---------------------------");
+        System.out.println("| Vending Machine Options |");
+        System.out.println("---------------------------");
         do {
             vendingMachineController.displayStock();
             System.out.println();
@@ -74,6 +80,11 @@ public class VendingMachineDemo {
             currCommand = inputCommand(commands);
             switch (currCommand) {
                 case BUY -> {
+                    if(!vendingMachineController.hasStock()) {
+                        System.out.println("Command denied. The vending machine currently has no stock");
+                        continue;
+                    }
+
                     System.out.println("Enter slot Number: ");
                     int slotNo = scanner.nextInt();
                     System.out.println("Input amount: ");
@@ -125,6 +136,10 @@ public class VendingMachineDemo {
         };
 
         Command currCommand;
+
+        System.out.println("-----------------------");
+        System.out.println("| Maintenance Options |");
+        System.out.println("-----------------------");
 
         do {
             maintenanceService.displayUnfilteredStock();
@@ -198,7 +213,11 @@ public class VendingMachineDemo {
                 if (commandIndex != null && commandIndex >= 0 && commandIndex < availableCommands.length) {
                     command = availableCommands[commandIndex];
                 } else {
-                    System.out.println("Command Index Out of Bounds.");
+                    if(commandIndex == null) {
+                        System.out.println("Command Index Out of Bounds.");
+                    } else {
+                        System.out.println("Command not Recognized.");
+                    }
                 }
             }
         } while (command == null);

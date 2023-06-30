@@ -59,7 +59,7 @@ public class VendingMachine {
     }
 
     public Item[] dispenseItem(int slotNo, int amount) {
-        Slot selectedSlot = slots[slotNo];
+        Slot selectedSlot = slots[slotNo - 1];
             if (selectedSlot.getAmount() >= amount) {
                 selectedSlot.setAmount(selectedSlot.getAmount() - amount);
                 Item item = selectedSlot.getItem();
