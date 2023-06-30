@@ -7,15 +7,17 @@ import view.MaintenanceView;
 public class MaintenanceService {
     private int totalMoney;
     private VendingMachine vendingMachine;
+    private MaintenanceView maintenanceView;
 
     /**
      * Constructs a MaintenanceService object with the specified vending machine.
      *
      * @param vendingMachine the vending machine to be maintained
      */
-    public MaintenanceService(VendingMachine vendingMachine) {
+    public MaintenanceService(VendingMachine vendingMachine, MaintenanceView maintenanceView) {
         totalMoney = 0;
         this.vendingMachine = vendingMachine;
+        this.maintenanceView = maintenanceView;
     }
 
     //TODO: DO THIS!!!!!
@@ -23,27 +25,27 @@ public class MaintenanceService {
                       String itemName, int calories, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            maintenanceView.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (amount <= 0) {
-            MaintenanceView.displayError("Item amount is not a positive integer.");
+            maintenanceView.displayError("Item amount is not a positive integer.");
             isCorrectInputs = false;
         }
 
         if (itemName.isBlank()) {
-            MaintenanceView.displayError("Item name is blank.");
+            maintenanceView.displayError("Item name is blank.");
             isCorrectInputs = false;
         }
 
         if (calories <= 0) {
-            MaintenanceView.displayError("Item calories is not a positive integer.");
+            maintenanceView.displayError("Item calories is not a positive integer.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            MaintenanceView.displayError("Item price is not a positive integer.");
+            maintenanceView.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -61,12 +63,12 @@ public class MaintenanceService {
     public void restock(int amount, int slotNo) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            maintenanceView.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (amount <= 0) {
-            MaintenanceView.displayError("Item amount is not a positive integer.");
+            maintenanceView.displayError("Item amount is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -82,12 +84,12 @@ public class MaintenanceService {
     public void changeItemPrice(int slotNo, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            maintenanceView.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            MaintenanceView.displayError("Item price is not a positive integer.");
+            maintenanceView.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -108,12 +110,13 @@ public class MaintenanceService {
     }
 
     //TODO: DO THIS!!!!!
-    public boolean replenishDenomination(int amount) {
-        if(amount > 0) {
-            vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
-            return true;
+    public void replenishDenomination(int amount) {
+        if (amount <= 0) {
+            maintenanceView.displayError("Item amount is not a positive integer.");
+            return;
         }
-        return false;
+
+        vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
     }
 
     /**
