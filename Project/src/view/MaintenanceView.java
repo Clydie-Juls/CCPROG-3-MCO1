@@ -1,20 +1,21 @@
 package view;
 
 import model.Item;
+import model.Slot;
 import model.VendingMachine;
 
 import java.util.Map;
 
 public class MaintenanceView {
 
-    public void displayUnfilteredStock(VendingMachine vendingMachine) {
+    public void displayUnfilteredStock(Slot[] slots) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
-        for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
-            Item currItem = vendingMachine.getSlots()[i].getItem();
+        for (int i = 0; i < slots.length; ++i) {
+            Item currItem = slots[i].getItem();
             if(currItem != null) {
                 System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
-                        vendingMachine.getSlots()[i].getAmount() +
+                        slots[i].getAmount() +
                         " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
             } else {
                 System.out.println("[" + (i + 1) + "] - " + "No item");
@@ -34,9 +35,9 @@ public class MaintenanceView {
         System.out.println("\n\n");
     }
 
-    public void displayDenomination(VendingMachine vendingMachine) {
+    public void displayDenomination(Map<Integer, Integer> currency) {
         System.out.println("Denomination:");
-        for (Map.Entry<Integer, Integer> entry : vendingMachine.getDenomination().getCurrency().entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : currency.entrySet()) {
             System.out.println("₱" + entry.getKey() + " -> Amt: " + entry.getValue());
         }
         System.out.println("\n\n");

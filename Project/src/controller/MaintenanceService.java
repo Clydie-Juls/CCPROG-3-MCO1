@@ -137,7 +137,7 @@ public class MaintenanceService {
     }
 
     public void displayUnfilteredStock() {
-        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine);
+        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine.getSlots());
     }
 
     public void displayTotalMoneyCollected() {
@@ -145,7 +145,7 @@ public class MaintenanceService {
     }
 
     public void displayDenomination() {
-        MAINTENANCE_VIEW.displayDenomination(vendingMachine);
+        MAINTENANCE_VIEW.displayDenomination(vendingMachine.getDenomination().getCurrency());
     }
 
     /**
