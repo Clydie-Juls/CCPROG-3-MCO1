@@ -11,7 +11,7 @@ public class Slot {
     /**
      * Constructs a Slot object with the specified capacity.
      *
-     * @param capacity the maximum capacity of the slot for holding items
+     * @param capacity The maximum capacity of the slot for holding items.
      */
     public Slot(int capacity) {
         this.CAPACITY = capacity;
@@ -20,8 +20,8 @@ public class Slot {
     /**
      * Sells the specified amount of items from the slot.
      *
-     * @param amount the quantity of items to be sold
-     * @return true if the items were successfully sold, false otherwise
+     * @param amount The quantity of items to be sold.
+     * @return True if the items were successfully sold, false otherwise.
      */
     public boolean sellItem(int amount) {
         if (this.amount >= amount) {
@@ -34,7 +34,7 @@ public class Slot {
     /**
      * Retrieves the capacity of the slot for holding items.
      *
-     * @return the capacity of the slot
+     * @return The capacity of the slot/
      */
     public int getCapacity() {
         return CAPACITY;
@@ -43,7 +43,7 @@ public class Slot {
     /**
      * Retrieves the item held in the slot.
      *
-     * @return the item held in the slot
+     * @return The item held in the slot.
      */
     public Item getItem() {
         return item;
@@ -52,7 +52,7 @@ public class Slot {
     /**
      * Retrieves the current amount of items in the slot.
      *
-     * @return the amount of items in the slot
+     * @return The amount of items in the slot.
      */
     public int getAmount() {
         return amount;
@@ -61,7 +61,7 @@ public class Slot {
     /**
      * Sets the item to be held in the slot.
      *
-     * @param item the item to be set in the slot
+     * @param item The item to be set in the slot.
      */
     public void setItem(Item item) {
         this.item = item;
@@ -70,7 +70,7 @@ public class Slot {
     /**
      * Sets the amount of items in the slot.
      *
-     * @param amount the amount of items to be set in the slot
+     * @param amount The amount of items to be set in the slot.
      */
     public void setAmount(int amount) {
         this.amount = amount;

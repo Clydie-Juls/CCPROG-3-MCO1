@@ -11,9 +11,9 @@ public class Item {
     /**
      * Constructs an Item object with the specified name, calories, and price.
      *
-     * @param name     the name of the item
-     * @param calories the number of calories in the item
-     * @param price    the price of the item
+     * @param name     The name of the item.
+     * @param calories The number of calories in the item.
+     * @param price    The price of the item.
      */
     public Item(String name, int calories, int price) {
         this.NAME = name;
@@ -24,7 +24,7 @@ public class Item {
     /**
      * Retrieves the name of the item.
      *
-     * @return the name of the item
+     * @return The name of the item.
      */
     public String getName() {
         return NAME;
@@ -33,7 +33,7 @@ public class Item {
     /**
      * Retrieves the number of calories in the item.
      *
-     * @return the number of calories in the item
+     * @return The number of calories in the item.
      */
     public int getCalories() {
         return CALORIES;
@@ -42,7 +42,7 @@ public class Item {
     /**
      * Retrieves the price of the item.
      *
-     * @return the price of the item
+     * @return The price of the item.
      */
     public int getPrice() {
         return price;
@@ -51,7 +51,7 @@ public class Item {
     /**
      * Sets the price of the item.
      *
-     * @param price the price of the item to be set
+     * @param price The price of the item to be set.
      */
     public void setPrice(int price) {
         if (price > 0) {
@@ -59,6 +59,10 @@ public class Item {
         }
     }
 
+    /**
+     * Returns the item name and its calories.
+     * @return  The item name and its calories.
+     */
     @Override
     public String toString() {
         return NAME + " - " + CALORIES + " cal";

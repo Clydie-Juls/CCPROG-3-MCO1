@@ -19,8 +19,8 @@ public class Transactions {
     /**
      * Adds a transaction for the specified item and quantity to the current item log.
      *
-     * @param item     the item involved in the transaction
-     * @param quantity the quantity of the item involved in the transaction
+     * @param item     The item involved in the transaction.
+     * @param quantity The quantity of the item involved in the transaction.
      */
     public void addTransaction(Item item, int quantity) {
         Item newItem = new Item(item.getName(), item.getCalories(), item.getPrice());
@@ -38,7 +38,7 @@ public class Transactions {
     /**
      * Retrieves the list of item logs representing the transaction history.
      *
-     * @return the list of item logs
+     * @return The list of item logs.
      */
     public List<Map<Item, Integer>> getItemLogs() {
         return ITEM_LOGS;

@@ -5,15 +5,19 @@ import model.MaintenanceData;
 import model.VendingMachine;
 import view.MaintenanceView;
 
+/**
+ * The MaintenanceService class maintains the vending machine's condition.
+ */
 public class MaintenanceService {
     private final MaintenanceData MAINTENANCE_DATA;
     private VendingMachine vendingMachine;
     private final MaintenanceView MAINTENANCE_VIEW;
 
     /**
-     * Constructs a MaintenanceService object with the specified vending machine.
-     *
-     * @param vendingMachine the vending machine to be maintained
+     * Constructs a MaintenanceService object with the specified vending machine and the maintenance's model and view.
+     * @param maintenanceData  Model of the maintenanceService.
+     * @param vendingMachine  Vending machine to maintain.
+     * @param maintenanceView  View of the maintenanceService.
      */
     public MaintenanceService(MaintenanceData maintenanceData, VendingMachine vendingMachine,
                               MaintenanceView maintenanceView) {
@@ -22,7 +26,14 @@ public class MaintenanceService {
         this.MAINTENANCE_VIEW = maintenanceView;
     }
 
-    //TODO: DO THIS!!!!!
+    /**
+     * Stocks a new item to the vending machine.
+     * @param amount  Amount of items to stock.
+     * @param slotNo  Slot Number of the vending machine.
+     * @param itemName  Name of the item.
+     * @param calories  Amount of calories the item has.
+     * @param price  How much the item is.
+     */
     public void stock(int amount, int slotNo,
                       String itemName, int calories, int price) {
         boolean isCorrectInputs = true;
@@ -67,7 +78,11 @@ public class MaintenanceService {
         vendingMachine.getTransactions().resetTransactions();
     }
 
-    //TODO: DO THIS!!!!!
+    /**
+     * Restocks an existing item of the vending machine.
+     * @param amount  Amount of items to stock.
+     * @param slotNo  Slot Number of the vending machine.
+     */
     public void restock(int amount, int slotNo) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
@@ -99,7 +114,11 @@ public class MaintenanceService {
 
     }
 
-    //TODO: DO THIS!!!!!
+    /**
+     * Change the price of an existing item in the vending machine.
+     * @param slotNo  Slot Number of the vending machine.
+     * @param price  How much the item is.
+     */
     public void changeItemPrice(int slotNo, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
@@ -120,16 +139,18 @@ public class MaintenanceService {
 
     }
 
-    //TODO: DO THIS!!!!!
     /**
-     * Collects the money from the vending machine and adds it to the total money collected.
+     * Collects the money saved in the vending machine
      */
     public void collectMoney() {
         MAINTENANCE_DATA.setTotalMoney(MAINTENANCE_DATA.getTotalMoney() +
                 vendingMachine.getDenomination().passDenomination());
     }
 
-    //TODO: DO THIS!!!!!
+    /**
+     * Refills the vending machine's denomination by a given amount.
+     * @param amount  Amount to refill per vending machine's denomination.
+     */
     public void replenishDenomination(int amount) {
         if (amount <= 0) {
             MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
@@ -139,14 +160,23 @@ public class MaintenanceService {
         vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
     }
 
+    /**
+     * Displays the stock of the vending machine regardless if it has an item or not.
+     */
     public void displayUnfilteredStock() {
         MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine.getSlots());
     }
 
+    /**
+     * Displays the total amount of money the maintenance service has collected.
+     */
     public void displayTotalMoneyCollected() {
         MAINTENANCE_VIEW.displayTotalMoneyCollected(MAINTENANCE_DATA.getTotalMoney());
     }
 
+    /**
+     * Displays the vending machine's denomination.
+     */
     public void displayDenomination() {
         MAINTENANCE_VIEW.displayDenomination(vendingMachine.getDenomination().getCurrency());
     }

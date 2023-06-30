@@ -19,8 +19,8 @@ public enum Command {
     /**
      * Parses the input string and returns the corresponding Command enum value.
      *
-     * @param input the input string representing a command
-     * @return the Command enum value corresponding to the input string, or null if no match is found
+     * @param input The input string representing a command.
+     * @return The Command enum value corresponding to the input string, or null if no match is found.
      */
     public static Command inputCommand(String input) {
         for (Command command : Command.values()) {

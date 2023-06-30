@@ -18,8 +18,8 @@ public class VendingMachine {
     /**
      * Constructs a VendingMachine object with the specified number of slots and item capacity.
      *
-     * @param noOfSlots    the number of slots in the vending machine
-     * @param itemCapacity the maximum capacity of each slot for holding items
+     * @param noOfSlots    The number of slots in the vending machine.
+     * @param itemCapacity The maximum capacity of each slot for holding items.
      */
     public VendingMachine(int noOfSlots, int itemCapacity) {
         DENOMINATION = new Denomination();
@@ -33,8 +33,8 @@ public class VendingMachine {
     /**
      * Constructs a VendingMachine object with the specified number of slots or capacity.
      *
-     * @param no               the number of slots or capacity based on the value of isNoOfCapacity
-     * @param isNoOfCapacity   determines whether the value of no represents the number of slots or the item capacity
+     * @param no               The number of slots or capacity based on the value of isNoOfCapacity.
+     * @param isNoOfCapacity   Determines whether the value of no represents the number of slots or the item capacity.
      */
     public VendingMachine(int no, boolean isNoOfCapacity) {
         DENOMINATION = new Denomination();
@@ -54,6 +54,12 @@ public class VendingMachine {
         }
     }
 
+    /**
+     * Dispenses an existing item if it has enough item amount.
+     * @param slotNo Slot Number of the vending machine.
+     * @param amount Amount of items requested.
+     * @return An array of items requested if the vending machine has enough. Returns null otherwise.
+     */
     public Item[] dispenseItem(int slotNo, int amount) {
         Slot selectedSlot = slots[slotNo - 1];
             if (selectedSlot.sellItem(amount)) {
@@ -71,14 +77,10 @@ public class VendingMachine {
         return null;
     }
 
-
-
-
-
     /**
      * Retrieves the array of slots in the vending machine.
      *
-     * @return the array of slots
+     * @return The array of slots.
      */
     public Slot[] getSlots() {
         return slots;
@@ -87,7 +89,7 @@ public class VendingMachine {
     /**
      * Retrieves the denomination object representing the currency used in the vending machine.
      *
-     * @return the denomination object
+     * @return The denomination object.
      */
     public Denomination getDenomination() {
         return DENOMINATION;
@@ -96,7 +98,7 @@ public class VendingMachine {
     /**
      * Retrieves the transactions object representing the logs of item transactions.
      *
-     * @return the transactions object
+     * @return The transactions object.
      */
     public Transactions getTransactions() {
         return TRANSACTIONS;

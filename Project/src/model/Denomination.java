@@ -26,12 +26,12 @@ public class Denomination {
     }
 
     /**
-     * Processes the payment by checking if there is enough change and if the vending machine has enough bills to
-     * provide the change. If there is enough change, the payment is transferred and the denominations are updated.
+     * Processes the payment by checking  if the vending machine has enough bills to provide the change.
+     * If there is enough change, the payment is transferred and the denominations are updated.
      *
-     * @param payment     the user's payment
-     * @param totalPrice  the total price of the products
-     * @return true if the payment process is successful, false otherwise
+     * @param payment     The user's payment.
+     * @param totalPrice  The total price of the products.
+     * @return True if the payment process is successful, false otherwise.
      */
     public boolean processPayment(Map<Integer, Integer> payment, int totalPrice) {
         int change = getTotalPayment(payment) - totalPrice;
