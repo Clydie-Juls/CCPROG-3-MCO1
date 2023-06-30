@@ -7,9 +7,9 @@ import model.VendingMachine;
 import java.util.Map;
 
 /**
- * The VendingMachinePrinter class provides methods for displaying information related to a vending machine.
+ * The VendingMachineView class provides methods for displaying information related to a vending machine.
  */
-public class VendingMachinePrinter {
+public class VendingMachineView {
 
     /**
      * Displays the stock of the given vending machine. If the slot is not empty, it will display
@@ -65,6 +65,12 @@ public class VendingMachinePrinter {
 
         if (!hasTransaction) {
             System.out.println("There are currently no transactions");
+        }
+    }
+
+    public void displayError(String ...errors) {
+        for (String error : errors) {
+            System.out.printf("Vending Machine Error: {%s}\n", error);
         }
     }
 }
