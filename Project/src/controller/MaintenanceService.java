@@ -7,15 +7,17 @@ import view.MaintenanceView;
 public class MaintenanceService {
     private int totalMoney;
     private VendingMachine vendingMachine;
+    private final MaintenanceView MAINTENANCE_VIEW;
 
     /**
      * Constructs a MaintenanceService object with the specified vending machine.
      *
      * @param vendingMachine the vending machine to be maintained
      */
-    public MaintenanceService(VendingMachine vendingMachine) {
+    public MaintenanceService(VendingMachine vendingMachine, MaintenanceView maintenanceView) {
         totalMoney = 0;
         this.vendingMachine = vendingMachine;
+        this.MAINTENANCE_VIEW = maintenanceView;
     }
 
     //TODO: DO THIS!!!!!
@@ -23,27 +25,32 @@ public class MaintenanceService {
                       String itemName, int calories, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (amount <= 0) {
-            MaintenanceView.displayError("Item amount is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
+            isCorrectInputs = false;
+        }
+
+        if( amount > vendingMachine.getSlots()[slotNo - 1].getCapacity()) {
+            MAINTENANCE_VIEW.displayError("Amount exceeded slot capacity.");
             isCorrectInputs = false;
         }
 
         if (itemName.isBlank()) {
-            MaintenanceView.displayError("Item name is blank.");
+            MAINTENANCE_VIEW.displayError("Item name is blank.");
             isCorrectInputs = false;
         }
 
         if (calories <= 0) {
-            MaintenanceView.displayError("Item calories is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item calories is not a positive integer.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            MaintenanceView.displayError("Item price is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -55,18 +62,29 @@ public class MaintenanceService {
         Item newItem = new Item(itemName, calories, price);
         vendingMachine.getSlots()[slotNo - 1].setItem(newItem);
         vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
+        vendingMachine.getTransactions().resetTransactions();
     }
 
     //TODO: DO THIS!!!!!
     public void restock(int amount, int slotNo) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
+        } else {
+            if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
+                MAINTENANCE_VIEW.displayError("Cannot restock because there is no existing item there.");
+                isCorrectInputs = false;
+            }
+            if(vendingMachine.getSlots()[slotNo - 1].getAmount() + amount >
+                    vendingMachine.getSlots()[slotNo -1].getCapacity()) {
+                MAINTENANCE_VIEW.displayError("Amount exceeded slot capacity.");
+                isCorrectInputs = false;
+            }
         }
 
         if (amount <= 0) {
-            MaintenanceView.displayError("Item amount is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -74,7 +92,8 @@ public class MaintenanceService {
             return;
         }
 
-        vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
+        vendingMachine.getSlots()[slotNo - 1].setAmount(vendingMachine.getSlots()[slotNo - 1].getAmount() + amount);
+        vendingMachine.getTransactions().resetTransactions();
 
     }
 
@@ -82,12 +101,12 @@ public class MaintenanceService {
     public void changeItemPrice(int slotNo, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            MaintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            MaintenanceView.displayError("Item price is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -108,21 +127,25 @@ public class MaintenanceService {
     }
 
     //TODO: DO THIS!!!!!
-    public boolean replenishDenomination(int amount) {
-        if(amount > 0) {
-            vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
-            return true;
+    public void replenishDenomination(int amount) {
+        if (amount <= 0) {
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
+            return;
         }
-        return false;
+
+        vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
     }
 
-    /**
-     * Retrieves the total money collected by the maintenance service.
-     *
-     * @return the total money collected
-     */
-    public int getTotalMoney() {
-        return totalMoney;
+    public void displayUnfilteredStock() {
+        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine);
+    }
+
+    public void displayTotalMoneyCollected() {
+        MAINTENANCE_VIEW.displayTotalMoneyCollected(totalMoney);
+    }
+
+    public void displayDenomination() {
+        MAINTENANCE_VIEW.displayDenomination(vendingMachine);
     }
 
     /**

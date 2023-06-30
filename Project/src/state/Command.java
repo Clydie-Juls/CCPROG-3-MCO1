@@ -9,9 +9,11 @@ public enum Command {
     RESTOCK,
     CHANGE_ITEM_PRICE,
     COLLECT_MONEY,
-    REPLENISH_MONEY,
+    REPLENISH_DENOMINATION,
     EXIT,
     VENDING_MACHINE_FEATURES,
+    DISPLAY_TRANSACTIONS,
+    SHOW_TOTAL_MONEY_COLLECTED,
     MAINTENANCE_FEATURES;
 
     /**
@@ -22,7 +24,7 @@ public enum Command {
      */
     public static Command inputCommand(String input) {
         for (Command command : Command.values()) {
-            if (command.toString().equalsIgnoreCase(input)) {
+            if (command.toString().equalsIgnoreCase(input.trim().replaceAll("\\s+", "_"))) {
                 return command;
             }
         }

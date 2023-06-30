@@ -1,15 +1,14 @@
 package view;
 
 import model.Item;
-import model.Slot;
 import model.VendingMachine;
 
 import java.util.Map;
 
 /**
- * The VendingMachinePrinter class provides methods for displaying information related to a vending machine.
+ * The VendingMachineView class provides methods for displaying information related to a vending machine.
  */
-public class VendingMachinePrinter {
+public class VendingMachineView {
 
     /**
      * Displays the stock of the given vending machine. If the slot is not empty, it will display
@@ -18,14 +17,15 @@ public class VendingMachinePrinter {
      *
      * @param vendingMachine the vending machine whose stocks will be displayed
      */
-    public static void displayStock(VendingMachine vendingMachine) {
+    public void displayStock(VendingMachine vendingMachine) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
-        for (Slot slot : vendingMachine.getSlots()) {
-            if (slot.getAmount() > 0) {
-                Item currItem = slot.getItem();
-                System.out.println(currItem.getName() + " -> Qty: " + slot.getAmount() +
-                        " -> Calories: " + currItem.getCalories());
+        for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
+            if (vendingMachine.getSlots()[i].getAmount() > 0) {
+                Item currItem = vendingMachine.getSlots()[i].getItem();
+                System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
+                        vendingMachine.getSlots()[i].getAmount() +
+                        " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
                 hasItem = true;
             }
         }
@@ -33,6 +33,7 @@ public class VendingMachinePrinter {
         if (!hasItem) {
             System.out.println("The Vending Machine currently doesn't have stocks");
         }
+        System.out.println("\n\n");
     }
 
     /**
@@ -41,7 +42,7 @@ public class VendingMachinePrinter {
      *
      * @param vendingMachine the vending machine whose transactions will be displayed
      */
-    public static void displayTransactions(VendingMachine vendingMachine) {
+    public void displayTransactions(VendingMachine vendingMachine) {
         boolean hasTransaction = false;
         int i = 1;
         for (Map<Item, Integer> itemLog : vendingMachine.getTransactions().getItemLogs()) {
@@ -66,5 +67,13 @@ public class VendingMachinePrinter {
         if (!hasTransaction) {
             System.out.println("There are currently no transactions");
         }
+        System.out.println("\n\n");
+    }
+
+    public void displayError(String ...errors) {
+        for (String error : errors) {
+            System.out.printf("Vending Machine Error: {%s}\n", error);
+        }
+        System.out.println("\n\n");
     }
 }

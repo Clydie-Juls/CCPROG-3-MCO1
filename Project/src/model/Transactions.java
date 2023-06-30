@@ -23,7 +23,7 @@ public class Transactions {
      * @param quantity the quantity of the item involved in the transaction
      */
     public void addTransaction(Item item, int quantity) {
-        Item newItem = new Item(item.getName(), item.getPrice(), item.getCalories());
+        Item newItem = new Item(item.getName(), item.getCalories(), item.getPrice());
         Map<Item, Integer> currentLog = ITEM_LOGS.get(ITEM_LOGS.size() - 1);
         currentLog.put(newItem, quantity);
     }
