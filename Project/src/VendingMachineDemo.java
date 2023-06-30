@@ -4,6 +4,7 @@ import model.Item;
 import model.VendingMachine;
 import state.Command;
 import view.MaintenanceView;
+import view.VendingMachinePrinter;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -19,8 +20,8 @@ public class VendingMachineDemo {
     private static MaintenanceService maintenanceService;
 
     public static void main(String[] args) {
-        vendingMachineController = new VendingMachineController(new VendingMachine());
-        maintenanceService = new MaintenanceService(vendingMachineController.getvendingMachine(), new MaintenanceView());
+        vendingMachineController = new VendingMachineController(new VendingMachine(), new VendingMachinePrinter());
+        maintenanceService = new MaintenanceService(vendingMachineController.getVendingMachine(), new MaintenanceView());
         scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------");
         System.out.println("| Welcome to The Vending Machine Demo Program |");

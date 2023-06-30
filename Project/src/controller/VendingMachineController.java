@@ -8,9 +8,11 @@ import java.util.LinkedHashMap;
 
 public class VendingMachineController {
     private final VendingMachine VENDING_MACHINE;
+    private final VendingMachinePrinter VENDING_MACHINE_PRINTER;
 
-    public VendingMachineController(VendingMachine vendingMachine) {
+    public VendingMachineController(VendingMachine vendingMachine, VendingMachinePrinter vendingMachinePrinter) {
         this.VENDING_MACHINE = vendingMachine;
+        this.VENDING_MACHINE_PRINTER = vendingMachinePrinter;
     }
 
     //TODO: DO THIS!!!!!
@@ -22,15 +24,17 @@ public class VendingMachineController {
 
     //TODO: DO THIS!!!!!
     public void displayStock() {
-        VendingMachinePrinter.displayStock(VENDING_MACHINE);
+        VENDING_MACHINE_PRINTER.displayStock(VENDING_MACHINE);
     }
 
     //TODO: DO THIS!!!!!
     public void displayTransactions() {
-
+        VENDING_MACHINE_PRINTER.displayStock(VENDING_MACHINE);
     }
 
-    public VendingMachine getvendingMachine() {
+    public VendingMachine getVendingMachine() {
         return VENDING_MACHINE;
     }
+
+
 }

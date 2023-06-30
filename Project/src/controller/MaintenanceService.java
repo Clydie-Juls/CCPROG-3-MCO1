@@ -7,7 +7,7 @@ import view.MaintenanceView;
 public class MaintenanceService {
     private int totalMoney;
     private VendingMachine vendingMachine;
-    private MaintenanceView maintenanceView;
+    private final MaintenanceView MAINTENANCE_VIEW;
 
     /**
      * Constructs a MaintenanceService object with the specified vending machine.
@@ -17,7 +17,7 @@ public class MaintenanceService {
     public MaintenanceService(VendingMachine vendingMachine, MaintenanceView maintenanceView) {
         totalMoney = 0;
         this.vendingMachine = vendingMachine;
-        this.maintenanceView = maintenanceView;
+        this.MAINTENANCE_VIEW = maintenanceView;
     }
 
     //TODO: DO THIS!!!!!
@@ -25,27 +25,27 @@ public class MaintenanceService {
                       String itemName, int calories, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            maintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (amount <= 0) {
-            maintenanceView.displayError("Item amount is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
             isCorrectInputs = false;
         }
 
         if (itemName.isBlank()) {
-            maintenanceView.displayError("Item name is blank.");
+            MAINTENANCE_VIEW.displayError("Item name is blank.");
             isCorrectInputs = false;
         }
 
         if (calories <= 0) {
-            maintenanceView.displayError("Item calories is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item calories is not a positive integer.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            maintenanceView.displayError("Item price is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -63,12 +63,12 @@ public class MaintenanceService {
     public void restock(int amount, int slotNo) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            maintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (amount <= 0) {
-            maintenanceView.displayError("Item amount is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -84,12 +84,12 @@ public class MaintenanceService {
     public void changeItemPrice(int slotNo, int price) {
         boolean isCorrectInputs = true;
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            maintenanceView.displayError("Slot number input outside of range.");
+            MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
         }
 
         if (price <= 0) {
-            maintenanceView.displayError("Item price is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item price is not a positive integer.");
             isCorrectInputs = false;
         }
 
@@ -112,7 +112,7 @@ public class MaintenanceService {
     //TODO: DO THIS!!!!!
     public void replenishDenomination(int amount) {
         if (amount <= 0) {
-            maintenanceView.displayError("Item amount is not a positive integer.");
+            MAINTENANCE_VIEW.displayError("Item amount is not a positive integer.");
             return;
         }
 
@@ -135,9 +135,5 @@ public class MaintenanceService {
      */
     public void setVendingMachine(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
-    }
-
-    public void setMaintenanceView(MaintenanceView maintenanceView) {
-        this.maintenanceView = maintenanceView;
     }
 }

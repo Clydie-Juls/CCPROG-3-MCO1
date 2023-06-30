@@ -18,7 +18,7 @@ public class VendingMachinePrinter {
      *
      * @param vendingMachine the vending machine whose stocks will be displayed
      */
-    public static void displayStock(VendingMachine vendingMachine) {
+    public void displayStock(VendingMachine vendingMachine) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
         for (Slot slot : vendingMachine.getSlots()) {
@@ -41,7 +41,7 @@ public class VendingMachinePrinter {
      *
      * @param vendingMachine the vending machine whose transactions will be displayed
      */
-    public static void displayTransactions(VendingMachine vendingMachine) {
+    public void displayTransactions(VendingMachine vendingMachine) {
         boolean hasTransaction = false;
         int i = 1;
         for (Map<Item, Integer> itemLog : vendingMachine.getTransactions().getItemLogs()) {
