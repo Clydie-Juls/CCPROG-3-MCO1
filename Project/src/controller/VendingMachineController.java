@@ -47,7 +47,7 @@ public class VendingMachineController {
 
     //TODO: DO THIS!!!!!
     public void displayTransactions() {
-        VENDING_MACHINE_VIEW.displayStock(VENDING_MACHINE);
+        VENDING_MACHINE_VIEW.displayTransactions(VENDING_MACHINE);
     }
 
     public VendingMachine getVendingMachine() {
