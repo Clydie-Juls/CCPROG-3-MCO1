@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,15 +14,15 @@ public class Denomination {
      */
     public Denomination() {
         CURRENCY = new LinkedHashMap<>();
-        CURRENCY.put(1000, 0);
-        CURRENCY.put(500, 0);
-        CURRENCY.put(200, 0);
-        CURRENCY.put(100, 0);
-        CURRENCY.put(50, 0);
-        CURRENCY.put(20, 0);
-        CURRENCY.put(10, 0);
-        CURRENCY.put(5, 0);
-        CURRENCY.put(1, 0);
+        CURRENCY.put(1000, 10);
+        CURRENCY.put(500, 10);
+        CURRENCY.put(200, 10);
+        CURRENCY.put(100, 10);
+        CURRENCY.put(50, 10);
+        CURRENCY.put(20, 10);
+        CURRENCY.put(10, 10);
+        CURRENCY.put(5, 10);
+        CURRENCY.put(1, 10);
     }
 
     /**
@@ -44,17 +43,14 @@ public class Denomination {
             transferPayment(payment);
             changeDenomination = new int[CURRENCY.size()];
             int changeToPass = change;
-            System.out.println(changeToPass);
             int i = 0;
             for (Map.Entry<Integer, Integer> entry : CURRENCY.entrySet()) {
                 for (int j = 0; j < entry.getValue() && changeToPass - entry.getKey() >= 0
                         && entry.getValue() > changeDenomination[i]; j++) {
                     changeDenomination[i]++;
                     changeToPass -= entry.getKey();
-                    System.out.println(Arrays.toString(changeDenomination) + "|" + changeToPass);
                 }
                 i++;
-
                 if (changeToPass == 0) {
                     i = 0;
                     for (Map.Entry<Integer, Integer> entry2 : CURRENCY.entrySet()) {

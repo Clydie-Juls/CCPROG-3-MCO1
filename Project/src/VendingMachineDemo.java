@@ -22,6 +22,7 @@ public class VendingMachineDemo {
     public static void main(String[] args) {
         vendingMachineController = new VendingMachineController(new VendingMachine(), new VendingMachineView());
         maintenanceService = new MaintenanceService(vendingMachineController.getVendingMachine(), new MaintenanceView());
+        maintenanceService.stock(3, 2, "Chips", 10, 20);
         scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------");
         System.out.println("| Welcome to The Vending Machine Demo Program |");
@@ -100,18 +101,31 @@ public class VendingMachineDemo {
                     payment.put(5, 0);
                     payment.put(1, 0);
 
-                    for (Map.Entry<Integer, Integer> entry : payment.entrySet()) {
-                        System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
-                        int moneyAmount = scanner.nextInt();
-                        while (moneyAmount <= 0) {
-                            System.out.println("Please input a positive integer value");
-                            System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
-                            moneyAmount = scanner.nextInt();
+                    int priceLeft = vendingMachineController.getItemPrice(slotNo) * amount;
+
+                    if (priceLeft > 0) {
+                        for (Map.Entry<Integer, Integer> entry : payment.entrySet()) {
+                            System.out.println("How may \"" + entry.getKey() + "\" are you going to insert? (₱"
+                            + Math.max(0, priceLeft) + " left)");
+                            int moneyAmount = scanner.nextInt();
+                            while (moneyAmount < 0) {
+                                System.out.println("Please input a positive integer value");
+                                System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
+                                moneyAmount = scanner.nextInt();
+                            }
+                            priceLeft -= entry.getKey() * moneyAmount;
+                            payment.put(entry.getKey(), moneyAmount);
                         }
-                    }
-                    Item[] boughtItems = vendingMachineController.buy(payment, slotNo, amount);
-                    if(boughtItems != null) {
-                        System.out.println("Successfully bought :" + Arrays.toString(boughtItems));
+                        Item[] boughtItems = vendingMachineController.buy(payment, slotNo, amount);
+                        if (boughtItems != null) {
+                            System.out.println("Successfully bought :" + Arrays.toString(boughtItems));
+                            System.out.println("Change of the Buyer:");
+                            for (Map.Entry<Integer, Integer> entry : payment.entrySet()) {
+                                System.out.println("₱" + entry.getKey() + " - " + entry.getValue());
+                            }
+                        }
+                    } else {
+                        System.out.println("Error { Invalid Inputs }");
                     }
                 }
                 case DISPLAY_TRANSACTIONS -> vendingMachineController.displayTransactions();
@@ -130,8 +144,9 @@ public class VendingMachineDemo {
                 Command.STOCK,
                 Command.RESTOCK,
                 Command.COLLECT_MONEY,
-                Command.REPLENISH_MONEY,
+                Command.REPLENISH_DENOMINATION,
                 Command.CHANGE_ITEM_PRICE,
+                Command.SHOW_TOTAL_MONEY_COLLECTED,
                 Command.EXIT
         };
 
@@ -143,6 +158,8 @@ public class VendingMachineDemo {
 
         do {
             maintenanceService.displayUnfilteredStock();
+            System.out.println();
+            maintenanceService.displayDenomination();
             System.out.println();
             displayCommands(commands);
             currCommand = inputCommand(commands);
@@ -171,7 +188,7 @@ public class VendingMachineDemo {
 
                 case COLLECT_MONEY -> maintenanceService.collectMoney();
 
-                case REPLENISH_MONEY -> {
+                case REPLENISH_DENOMINATION -> {
                     System.out.println("How many of each denomination should be refilled?");
                     int amount = scanner.nextInt();
                     maintenanceService.replenishDenomination(amount);
@@ -184,7 +201,7 @@ public class VendingMachineDemo {
                     int price = scanner.nextInt();
                     maintenanceService.changeItemPrice(slotNo, price);
                 }
-
+                case SHOW_TOTAL_MONEY_COLLECTED -> maintenanceService.displayTotalMoneyCollected();
                 case EXIT -> System.out.println("Exit inputted.");
                 default -> System.out.println("Command Not Recognized");
             }
@@ -201,7 +218,12 @@ public class VendingMachineDemo {
     private static Command inputCommand(Command[] availableCommands) {
         Command command;
         do {
-            String input = scanner.nextLine();
+            System.out.print("Input: ");
+            String input;
+            // request inputs until the input has actual words
+            do {
+                input = scanner.nextLine();
+            } while (input.isBlank());
             command = Command.inputCommand(input);
             if (command == null) {
                 Integer commandIndex;
@@ -214,9 +236,9 @@ public class VendingMachineDemo {
                     command = availableCommands[commandIndex];
                 } else {
                     if(commandIndex == null) {
-                        System.out.println("Command Index Out of Bounds.");
+                        System.out.println("Error{ Command Index Out of Bounds. }");
                     } else {
-                        System.out.println("Command not Recognized.");
+                        System.out.println("Error{ Command not Recognized. }");
                     }
                 }
             }

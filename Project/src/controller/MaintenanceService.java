@@ -62,6 +62,7 @@ public class MaintenanceService {
         Item newItem = new Item(itemName, calories, price);
         vendingMachine.getSlots()[slotNo - 1].setItem(newItem);
         vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
+        vendingMachine.getTransactions().resetTransactions();
     }
 
     //TODO: DO THIS!!!!!
@@ -70,9 +71,16 @@ public class MaintenanceService {
         if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
             MAINTENANCE_VIEW.displayError("Slot number input outside of range.");
             isCorrectInputs = false;
-        } else if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
-            MAINTENANCE_VIEW.displayError("Cannot restock because there is no existing item there.");
-            isCorrectInputs = false;
+        } else {
+            if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
+                MAINTENANCE_VIEW.displayError("Cannot restock because there is no existing item there.");
+                isCorrectInputs = false;
+            }
+            if(vendingMachine.getSlots()[slotNo - 1].getAmount() + amount >
+                    vendingMachine.getSlots()[slotNo -1].getCapacity()) {
+                MAINTENANCE_VIEW.displayError("Amount exceeded slot capacity.");
+                isCorrectInputs = false;
+            }
         }
 
         if (amount <= 0) {
@@ -84,7 +92,8 @@ public class MaintenanceService {
             return;
         }
 
-        vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
+        vendingMachine.getSlots()[slotNo - 1].setAmount(vendingMachine.getSlots()[slotNo - 1].getAmount() + amount);
+        vendingMachine.getTransactions().resetTransactions();
 
     }
 
@@ -131,13 +140,12 @@ public class MaintenanceService {
         MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine);
     }
 
-    /**
-     * Retrieves the total money collected by the maintenance service.
-     *
-     * @return the total money collected
-     */
-    public int getTotalMoney() {
-        return totalMoney;
+    public void displayTotalMoneyCollected() {
+        MAINTENANCE_VIEW.displayTotalMoneyCollected(totalMoney);
+    }
+
+    public void displayDenomination() {
+        MAINTENANCE_VIEW.displayDenomination(vendingMachine);
     }
 
     /**

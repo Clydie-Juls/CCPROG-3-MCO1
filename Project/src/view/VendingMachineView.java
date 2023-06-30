@@ -1,7 +1,6 @@
 package view;
 
 import model.Item;
-import model.Slot;
 import model.VendingMachine;
 
 import java.util.Map;
@@ -24,9 +23,9 @@ public class VendingMachineView {
         for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
             if (vendingMachine.getSlots()[i].getAmount() > 0) {
                 Item currItem = vendingMachine.getSlots()[i].getItem();
-                System.out.println("[" + (i + 1) + "] -" + currItem.getName() + " -> Qty: " +
+                System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
                         vendingMachine.getSlots()[i].getAmount() +
-                        " -> Calories: " + currItem.getCalories());
+                        " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
                 hasItem = true;
             }
         }
@@ -34,6 +33,7 @@ public class VendingMachineView {
         if (!hasItem) {
             System.out.println("The Vending Machine currently doesn't have stocks");
         }
+        System.out.println("\n\n");
     }
 
     /**
@@ -67,11 +67,13 @@ public class VendingMachineView {
         if (!hasTransaction) {
             System.out.println("There are currently no transactions");
         }
+        System.out.println("\n\n");
     }
 
     public void displayError(String ...errors) {
         for (String error : errors) {
             System.out.printf("Vending Machine Error: {%s}\n", error);
         }
+        System.out.println("\n\n");
     }
 }

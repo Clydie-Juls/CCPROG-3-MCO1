@@ -1,9 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * The VendingMachine class represents a vending machine that contains slots with items.
  */
@@ -60,8 +56,7 @@ public class VendingMachine {
 
     public Item[] dispenseItem(int slotNo, int amount) {
         Slot selectedSlot = slots[slotNo - 1];
-            if (selectedSlot.getAmount() >= amount) {
-                selectedSlot.setAmount(selectedSlot.getAmount() - amount);
+            if (selectedSlot.sellItem(amount)) {
                 Item item = selectedSlot.getItem();
 
                 Item[] dispensedItems = new Item[amount];

@@ -27,9 +27,11 @@ public class VendingMachineController {
                     selectedSlot.getItem().getPrice() * amount)) {
 
                 VENDING_MACHINE_VIEW.displayError("Currency Transactions has failed.");
+            } else {
                 Item[] dispensedItem = VENDING_MACHINE.dispenseItem(slotNo, amount);
 
                 if(dispensedItem != null) {
+                    VENDING_MACHINE.getTransactions().addTransaction(dispensedItem[0], amount);
                     return dispensedItem;
                 }
                 VENDING_MACHINE_VIEW.displayError("Not enough item to dispense.");
@@ -62,6 +64,17 @@ public class VendingMachineController {
 
     public VendingMachine getVendingMachine() {
         return VENDING_MACHINE;
+    }
+
+    public int getItemPrice(int slotNo) {
+        if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
+            VENDING_MACHINE_VIEW.displayError("Slot number input outside of range.");
+            return -1;
+        } else if(VENDING_MACHINE.getSlots()[slotNo - 1].getItem() == null) {
+            VENDING_MACHINE_VIEW.displayError("Item doesn't exist in that slot number.");
+            return -1;
+        }
+        return VENDING_MACHINE.getSlots()[slotNo - 1].getItem().getPrice();
     }
 
 
