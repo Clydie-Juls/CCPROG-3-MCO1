@@ -119,6 +119,10 @@ public class MaintenanceService {
         vendingMachine.getDenomination().getCurrency().replaceAll((k, v) -> v + amount);
     }
 
+    public void displayUnfilteredStock() {
+        MAINTENANCE_VIEW.displayUnfilteredStock(vendingMachine);
+    }
+
     /**
      * Retrieves the total money collected by the maintenance service.
      *

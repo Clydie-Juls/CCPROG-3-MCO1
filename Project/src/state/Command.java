@@ -12,6 +12,7 @@ public enum Command {
     REPLENISH_MONEY,
     EXIT,
     VENDING_MACHINE_FEATURES,
+    DISPLAY_TRANSACTIONS,
     MAINTENANCE_FEATURES;
 
     /**
@@ -22,7 +23,7 @@ public enum Command {
      */
     public static Command inputCommand(String input) {
         for (Command command : Command.values()) {
-            if (command.toString().equalsIgnoreCase(input)) {
+            if (command.toString().trim().replaceAll("\\s+", "_").equalsIgnoreCase(input)) {
                 return command;
             }
         }

@@ -61,6 +61,7 @@ public class VendingMachineDemo {
     private static void executeVendingMachineFeatures() {
         Command[] commands = {
                 Command.BUY,
+                Command.DISPLAY_TRANSACTIONS,
                 Command.EXIT
         };
 
@@ -102,6 +103,7 @@ public class VendingMachineDemo {
                         System.out.println("Successfully bought :" + Arrays.toString(boughtItems));
                     }
                 }
+                case DISPLAY_TRANSACTIONS -> vendingMachineController.displayTransactions();
                 case EXIT -> System.out.println("Exit inputted.");
                 default -> System.out.println("Command Not Recognized");
             }
@@ -125,7 +127,7 @@ public class VendingMachineDemo {
         Command currCommand;
 
         do {
-            vendingMachineController.displayStock();
+            maintenanceService.displayUnfilteredStock();
             System.out.println();
             displayCommands(commands);
             currCommand = inputCommand(commands);
@@ -211,7 +213,8 @@ public class VendingMachineDemo {
      */
     private static void displayCommands(Command[] commands) {
         for (int i = 0; i < commands.length; i++) {
-            System.out.printf("[%d] - %s%n", i + 1, commands[i].toString().toLowerCase());
+            System.out.printf("[%d] - %s%n", i + 1, commands[i].toString().toLowerCase().
+                    replace('_', ' '));
         }
     }
 }
