@@ -1,8 +1,11 @@
 import controller.VendingMachineController;
-import model.MaintenanceService;
+import controller.MaintenanceService;
+import model.Item;
 import model.VendingMachine;
 import state.Command;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -68,8 +71,33 @@ public class VendingMachineDemo {
             currCommand = inputCommand(commands);
             switch (currCommand) {
                 case BUY -> {
-                    if (!vendingMachineController.buy()) {
-                        System.out.println("Buy process Unsuccessful!!!");
+                    System.out.println("Enter slot Number: ");
+                    int slotNo = scanner.nextInt();
+                    System.out.println("Input amount: ");
+                    int amount = scanner.nextInt();
+                    LinkedHashMap<Integer, Integer> payment = new LinkedHashMap<>();
+                    payment.put(1000, 0);
+                    payment.put(500, 0);
+                    payment.put(200, 0);
+                    payment.put(100, 0);
+                    payment.put(50, 0);
+                    payment.put(20, 0);
+                    payment.put(10, 0);
+                    payment.put(5, 0);
+                    payment.put(1, 0);
+
+                    for (Map.Entry<Integer, Integer> entry : payment.entrySet()) {
+                        System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
+                        int moneyAmount = scanner.nextInt();
+                        while (moneyAmount <= 0) {
+                            System.out.println("Please input a positive integer value");
+                            System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
+                            moneyAmount = scanner.nextInt();
+                        }
+                    }
+                    Item[] boughtItems = vendingMachineController.buy(payment, slotNo, amount);
+                    if(boughtItems != null) {
+                        System.out.println("Successfully bought :" + Arrays.toString(boughtItems));
                     }
                 }
                 case EXIT -> System.out.println("Exit inputted.");

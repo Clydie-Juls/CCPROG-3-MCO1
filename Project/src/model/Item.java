@@ -58,4 +58,9 @@ public class Item {
             this.price = price;
         }
     }
+
+    @Override
+    public String toString() {
+        return NAME + " - " + CALORIES + " cal";
+    }
 }
