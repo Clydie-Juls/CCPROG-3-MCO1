@@ -136,4 +136,8 @@ public class MaintenanceService {
     public void setVendingMachine(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
     }
+
+    public void setMaintenanceView(MaintenanceView maintenanceView) {
+        this.maintenanceView = maintenanceView;
+    }
 }
