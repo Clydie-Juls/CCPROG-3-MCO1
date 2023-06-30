@@ -21,10 +21,11 @@ public class VendingMachineView {
     public void displayStock(VendingMachine vendingMachine) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
-        for (Slot slot : vendingMachine.getSlots()) {
-            if (slot.getAmount() > 0) {
-                Item currItem = slot.getItem();
-                System.out.println(currItem.getName() + " -> Qty: " + slot.getAmount() +
+        for (int i = 0; i < vendingMachine.getSlots().length; ++i) {
+            if (vendingMachine.getSlots()[i].getAmount() > 0) {
+                Item currItem = vendingMachine.getSlots()[i].getItem();
+                System.out.println("[" + (i + 1) + "] -" + currItem.getName() + " -> Qty: " +
+                        vendingMachine.getSlots()[i].getAmount() +
                         " -> Calories: " + currItem.getCalories());
                 hasItem = true;
             }
