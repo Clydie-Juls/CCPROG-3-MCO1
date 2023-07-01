@@ -21,9 +21,13 @@ public class VendingMachineDemo {
     private static MaintenanceService maintenanceService;
 
     public static void main(String[] args) {
-        vendingMachineController = new VendingMachineController(new VendingMachine(), new VendingMachineView());
-        maintenanceService = new MaintenanceService(new MaintenanceData(),
-                vendingMachineController.getVendingMachine(), new MaintenanceView());
+        VendingMachine vendingMachine = new VendingMachine();
+        VendingMachineView vendingMachineView = new VendingMachineView();
+        MaintenanceData maintenanceData = new MaintenanceData();
+        MaintenanceView maintenanceView = new MaintenanceView();
+        vendingMachineController = new VendingMachineController(vendingMachine, vendingMachineView);
+        maintenanceService = new MaintenanceService(maintenanceData,
+                vendingMachineController.getVendingMachine(), maintenanceView);
         scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------");
         System.out.println("| Welcome to The Vending Machine Demo Program |");
