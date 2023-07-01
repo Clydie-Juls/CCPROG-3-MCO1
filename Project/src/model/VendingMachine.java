@@ -39,12 +39,14 @@ public class VendingMachine {
     public VendingMachine(int no, boolean isNoOfCapacity) {
         DENOMINATION = new Denomination();
         TRANSACTIONS = new Transactions();
+        // if the "no" is meant for the slot capacity
         if (isNoOfCapacity) {
             no = Math.max(8, no);
             slots = new Slot[no];
             for (int i = 0; i < slots.length; i++) {
                 slots[i] = new Slot(10);
             }
+            // If the "no" is meant for the number of slots
         } else {
             no = Math.max(10, no);
             slots = new Slot[8];

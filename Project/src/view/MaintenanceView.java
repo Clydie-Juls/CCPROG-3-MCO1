@@ -17,9 +17,12 @@ public class MaintenanceView {
     public void displayUnfilteredStock(Slot[] slots) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
+        // loops through each vending machine slots
         for (int i = 0; i < slots.length; ++i) {
             Item currItem = slots[i].getItem();
+            // if the current item exists
             if(currItem != null) {
+                // Prompts item and slot information
                 System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
                         slots[i].getAmount() +
                         " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
@@ -29,6 +32,7 @@ public class MaintenanceView {
             hasItem = true;
         }
 
+        // If there are no stocks in the vending machine
         if (!hasItem) {
             System.out.println("The Vending Machine currently doesn't have stocks");
         }
