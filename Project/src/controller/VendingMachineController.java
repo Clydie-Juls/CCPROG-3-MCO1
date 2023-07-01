@@ -33,11 +33,12 @@ public class VendingMachineController {
      * @return  array of items the user bought if successful, returns null otherwise.
      */
     public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
+        // if range is out of bounds
         if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
             VENDING_MACHINE_VIEW.displayError("Slot number input outside of range.");
         } else {
             Slot selectedSlot = VENDING_MACHINE.getSlots()[slotNo - 1];
-
+            // if transactions process has failed
             if (!VENDING_MACHINE.getDenomination().processPayment(payment,
                     selectedSlot.getItem().getPrice() * amount)) {
 
@@ -45,6 +46,7 @@ public class VendingMachineController {
             } else {
                 Item[] dispensedItem = VENDING_MACHINE.dispenseItem(slotNo, amount);
 
+                // If dispense item process is successful
                 if(dispensedItem != null) {
                     VENDING_MACHINE.getTransactions().addTransaction(dispensedItem[0], amount);
                     return dispensedItem;
@@ -97,9 +99,11 @@ public class VendingMachineController {
      * @return  The price of the existing item.
      */
     public int getItemPrice(int slotNo) {
+        // If slotNo is out of bounds
         if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
             VENDING_MACHINE_VIEW.displayError("Slot number input outside of range.");
             return -1;
+            // If Slot object has no existing item
         } else if(VENDING_MACHINE.getSlots()[slotNo - 1].getItem() == null) {
             VENDING_MACHINE_VIEW.displayError("Item doesn't exist in that slot number.");
             return -1;

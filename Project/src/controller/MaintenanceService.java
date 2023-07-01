@@ -71,7 +71,7 @@ public class MaintenanceService {
             return;
         }
 
-
+        // If all parameters are valid
         Item newItem = new Item(itemName, calories, price);
         vendingMachine.getSlots()[slotNo - 1].setItem(newItem);
         vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
@@ -109,6 +109,7 @@ public class MaintenanceService {
             return;
         }
 
+        // If all parameters are valid
         vendingMachine.getSlots()[slotNo - 1].setAmount(vendingMachine.getSlots()[slotNo - 1].getAmount() + amount);
         vendingMachine.getTransactions().resetTransactions();
 
@@ -135,6 +136,7 @@ public class MaintenanceService {
             return;
         }
 
+        // If all parameters are valid
         vendingMachine.getSlots()[slotNo - 1].getItem().setPrice(price);
 
     }
