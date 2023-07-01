@@ -50,6 +50,7 @@ public class VendingMachineView {
     public void displayTransactions(List<Map<Item, Integer>> itemLogs) {
         boolean hasTransaction = false;
         int i = 1;
+        long allTotalPrice = 0;
         // loops through each transaction history
         for (Map<Item, Integer> itemLog : itemLogs) {
             // If the entry set of item log is not empty
@@ -66,6 +67,7 @@ public class VendingMachineView {
                 }
 
                 System.out.println("Total Price: " + totalPrice);
+                allTotalPrice += totalPrice;
             } else {
                 System.out.println("<----- There are no transactions happened during stock " + i + " ----->");
             }
@@ -74,6 +76,8 @@ public class VendingMachineView {
 
         if (!hasTransaction) {
             System.out.println("There are currently no transactions");
+        } else {
+            System.out.println("Sum of total prices : " + allTotalPrice);
         }
         System.out.println("\n\n");
     }

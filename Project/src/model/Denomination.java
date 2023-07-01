@@ -41,8 +41,8 @@ public class Denomination {
         Map<Integer, Integer> currencyHolder = new LinkedHashMap<>(CURRENCY);
         int[] changeDenomination;
 
-        // if the user has change
-        if (change > 0) {
+        // if change is a non-negative number
+        if (change >= 0) {
             // transfer user payment to denomination currency
             transferPayment(payment);
             changeDenomination = new int[CURRENCY.size()];
