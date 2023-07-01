@@ -21,6 +21,7 @@ public class VendingMachineDemo {
     private static MaintenanceService maintenanceService;
 
     public static void main(String[] args) {
+        //Initialization
         VendingMachine vendingMachine = new VendingMachine();
         VendingMachineView vendingMachineView = new VendingMachineView();
         MaintenanceData maintenanceData = new MaintenanceData();
@@ -40,6 +41,7 @@ public class VendingMachineDemo {
      * Executes the main options/features of the vending machine demo program.
      */
     private static void executeOptionFeatures() {
+        // Available commands
         Command[] commands = {
                 Command.VENDING_MACHINE_FEATURES,
                 Command.MAINTENANCE_FEATURES,
@@ -51,6 +53,7 @@ public class VendingMachineDemo {
 
         Command currCommand;
 
+        // command options inputs, prompts and actions.
         do {
             displayCommands(commands);
             currCommand = inputCommand(commands);
@@ -68,9 +71,9 @@ public class VendingMachineDemo {
      * Executes the vending machine features/options.
      */
     private static void executeVendingMachineFeatures() {
+        // Available commands
         Command[] commands = {
                 Command.BUY,
-                Command.DISPLAY_TRANSACTIONS,
                 Command.EXIT
         };
 
@@ -79,6 +82,7 @@ public class VendingMachineDemo {
         System.out.println("---------------------------");
         System.out.println("| Vending Machine Options |");
         System.out.println("---------------------------");
+        // command options inputs, prompts and actions.
         do {
             vendingMachineController.displayStock();
             System.out.println();
@@ -90,7 +94,7 @@ public class VendingMachineDemo {
                         System.out.println("Command denied. The vending machine currently has no stock");
                         continue;
                     }
-
+                    // Input prerequisites before buying
                     System.out.println("Enter slot Number: ");
                     int slotNo = scanner.nextInt();
                     System.out.println("Input amount: ");
@@ -108,19 +112,27 @@ public class VendingMachineDemo {
 
                     int priceLeft = vendingMachineController.getItemPrice(slotNo) * amount;
 
+                    // Proceeds to denomination payment if previous inputs are valid
                     if (priceLeft > 0) {
+                        // loops through the payment linked hash map for the frequency
                         for (Map.Entry<Integer, Integer> entry : payment.entrySet()) {
+                            /* Prompts for input and shows the price left(Will still
+                             continue regardless if price left is 0)*/
                             System.out.println("How may \"" + entry.getKey() + "\" are you going to insert? (₱"
                             + Math.max(0, priceLeft) + " left)");
+                            // scans for the money amount and will loop until a positive integer value is inputted.
                             int moneyAmount = scanner.nextInt();
                             while (moneyAmount < 0) {
                                 System.out.println("Please input a positive integer value");
                                 System.out.println("How may \"" + entry.getKey() + "\" are you going to insert?");
                                 moneyAmount = scanner.nextInt();
                             }
+                            // decreases after each successful input
                             priceLeft -= entry.getKey() * moneyAmount;
+                            // add the money amount
                             payment.put(entry.getKey(), moneyAmount);
                         }
+                        // obtains the array of items bought if the buy process is successful
                         Item[] boughtItems = vendingMachineController.buy(payment, slotNo, amount);
                         if (boughtItems != null) {
                             System.out.println("Successfully bought :" + Arrays.toString(boughtItems));
@@ -133,8 +145,8 @@ public class VendingMachineDemo {
                         System.out.println("Error { Invalid Inputs }");
                     }
                 }
-                case DISPLAY_TRANSACTIONS -> vendingMachineController.displayTransactions();
                 case EXIT -> System.out.println("Exit inputted.");
+                // Command is unrecognizable.
                 default -> System.out.println("Command Not Recognized");
             }
 
@@ -145,6 +157,7 @@ public class VendingMachineDemo {
      * Executes the maintenance features/options.
      */
     private static void executeMaintenanceFeatures() {
+        // Available commands
         Command[] commands = {
                 Command.STOCK,
                 Command.RESTOCK,
@@ -152,6 +165,7 @@ public class VendingMachineDemo {
                 Command.REPLENISH_DENOMINATION,
                 Command.CHANGE_ITEM_PRICE,
                 Command.SHOW_TOTAL_MONEY_COLLECTED,
+                Command.DISPLAY_TRANSACTIONS,
                 Command.EXIT
         };
 
@@ -161,15 +175,19 @@ public class VendingMachineDemo {
         System.out.println("| Maintenance Options |");
         System.out.println("-----------------------");
 
+        // command options inputs, prompts and actions.
         do {
+            // prompts unfiltered stock
             maintenanceService.displayUnfilteredStock();
             System.out.println();
+            //prompts vending machine's current denomination
             maintenanceService.displayDenomination();
             System.out.println();
             displayCommands(commands);
             currCommand = inputCommand(commands);
             switch (currCommand) {
                 case STOCK -> {
+                    // Input prerequisites
                     System.out.println("Input item name:");
                     String itemName = scanner.nextLine();
                     System.out.println("Input amount:");
@@ -184,6 +202,7 @@ public class VendingMachineDemo {
                 }
 
                 case RESTOCK -> {
+                    // Input prerequisites
                     System.out.println("Which slot number should be refilled?");
                     int slotNo = scanner.nextInt();
                     System.out.println("Input amount:");
@@ -194,12 +213,14 @@ public class VendingMachineDemo {
                 case COLLECT_MONEY -> maintenanceService.collectMoney();
 
                 case REPLENISH_DENOMINATION -> {
+                    // Input prerequisites
                     System.out.println("How many of each denomination should be refilled?");
                     int amount = scanner.nextInt();
                     maintenanceService.replenishDenomination(amount);
                 }
 
                 case CHANGE_ITEM_PRICE -> {
+                    // Input prerequisites
                     System.out.println("Which slot number should the item's price be changed?");
                     int slotNo = scanner.nextInt();
                     System.out.println("Enter the new price:");
@@ -207,7 +228,9 @@ public class VendingMachineDemo {
                     maintenanceService.changeItemPrice(slotNo, price);
                 }
                 case SHOW_TOTAL_MONEY_COLLECTED -> maintenanceService.displayTotalMoneyCollected();
+                case DISPLAY_TRANSACTIONS -> vendingMachineController.displayTransactions();
                 case EXIT -> System.out.println("Exit inputted.");
+                // Command is unrecognizable.
                 default -> System.out.println("Command Not Recognized");
             }
 
@@ -222,6 +245,7 @@ public class VendingMachineDemo {
      */
     private static Command inputCommand(Command[] availableCommands) {
         Command command;
+        // request for input until a valid command is inputted
         do {
             System.out.print("Input: ");
             String input;
@@ -230,18 +254,23 @@ public class VendingMachineDemo {
                 input = scanner.nextLine();
             } while (input.isBlank());
             command = Command.inputCommand(input);
+            // if the user either inputed the wrong command or the command number
             if (command == null) {
                 Integer commandIndex;
+                // catch for the unchecked exception when the integer failed to parse the input
                 try {
                     commandIndex = Integer.parseInt(input) - 1;
                 } catch (NumberFormatException e) {
                     commandIndex = null;
                 }
+                // if command number input is valid and in range
                 if (commandIndex != null && commandIndex >= 0 && commandIndex < availableCommands.length) {
                     command = availableCommands[commandIndex];
                 } else {
+                    // If command index is out of bounds
                     if(commandIndex == null) {
                         System.out.println("Error{ Command Index Out of Bounds. }");
+                        // If the command index was caught for unchecked exception and wrong command input.
                     } else {
                         System.out.println("Error{ Command not Recognized. }");
                     }
@@ -259,6 +288,7 @@ public class VendingMachineDemo {
      */
     private static void displayCommands(Command[] commands) {
         for (int i = 0; i < commands.length; i++) {
+            // format enum commands by converting them to lower case and removing '_'
             System.out.printf("[%d] - %s%n", i + 1, commands[i].toString().toLowerCase().
                     replace('_', ' '));
         }

@@ -21,9 +21,12 @@ public class VendingMachineView {
     public void displayStock(Slot[] slots) {
         boolean hasItem = false;
         System.out.println("Vending Machine Stocks:");
+        // prompts vending machine item per slots
         for (int i = 0; i < slots.length; ++i) {
+            // if the item in that slot exist and has an amount
             if (slots[i].getAmount() > 0) {
                 Item currItem = slots[i].getItem();
+                // Prompts slot and item info
                 System.out.println("[" + (i + 1) + "] - " + currItem.getName() + " -> Qty: " +
                         slots[i].getAmount() +
                         " -> Calories: " + currItem.getCalories() + " -> Price: ₱" + currItem.getPrice());
@@ -31,6 +34,7 @@ public class VendingMachineView {
             }
         }
 
+        // If there are no stocks in the vending machine
         if (!hasItem) {
             System.out.println("The Vending Machine currently doesn't have stocks");
         }
@@ -46,12 +50,15 @@ public class VendingMachineView {
     public void displayTransactions(List<Map<Item, Integer>> itemLogs) {
         boolean hasTransaction = false;
         int i = 1;
+        // loops through each transaction history
         for (Map<Item, Integer> itemLog : itemLogs) {
+            // If the entry set of item log is not empty
             if (!itemLog.isEmpty()) {
                 System.out.println("<----- Transactions on stock " + i + " ----->");
                 hasTransaction = true;
                 int totalPrice = 0;
 
+                // prompts item transactions for the current stock history
                 for (Map.Entry<Item, Integer> entry : itemLog.entrySet()) {
                     System.out.println(entry.getKey() + " -> Qty: " + entry.getValue() + " -> Price: " +
                             (entry.getValue() * entry.getKey().getPrice()));

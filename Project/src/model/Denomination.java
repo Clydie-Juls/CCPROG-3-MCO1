@@ -34,16 +34,23 @@ public class Denomination {
      * @return True if the payment process is successful, false otherwise.
      */
     public boolean processPayment(Map<Integer, Integer> payment, int totalPrice) {
+        // calculates the change first
         int change = getTotalPayment(payment) - totalPrice;
+        //stores previous data of payment and currency in case transaction process has failed
         Map<Integer, Integer> paymentHolder = new LinkedHashMap<>(payment);
         Map<Integer, Integer> currencyHolder = new LinkedHashMap<>(CURRENCY);
         int[] changeDenomination;
 
+        // if the user has change
         if (change > 0) {
+            // transfer user payment to denomination currency
             transferPayment(payment);
             changeDenomination = new int[CURRENCY.size()];
             int changeToPass = change;
             int i = 0;
+            /* loops through each denomination in stable order then reduce each denomination by how much it
+            * can actually decrease to the current change.*/
+
             for (Map.Entry<Integer, Integer> entry : CURRENCY.entrySet()) {
                 for (int j = 0; j < entry.getValue() && changeToPass - entry.getKey() >= 0
                         && entry.getValue() > changeDenomination[i]; j++) {
@@ -51,8 +58,10 @@ public class Denomination {
                     changeToPass -= entry.getKey();
                 }
                 i++;
+                // If giving the change to the user is successful
                 if (changeToPass == 0) {
                     i = 0;
+                    // pass the change to the payment and update the denomination
                     for (Map.Entry<Integer, Integer> entry2 : CURRENCY.entrySet()) {
                         int newNo = entry2.getValue() - changeDenomination[i];
                         CURRENCY.put(entry2.getKey(), newNo);
@@ -64,6 +73,7 @@ public class Denomination {
             }
         }
 
+        // If the transaction process failed
         payment.putAll(paymentHolder);
         CURRENCY.putAll(currencyHolder);
         return false;
